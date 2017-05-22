@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LigneEditDlg" widgetVar="LigneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLigneTitle}">
+            <h:form id="LigneEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ligneController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLigneLabel_numeroLigne}" for="numeroLigne" />
+                        <p:inputText id="numeroLigne" value="#{ligneController.selected.numeroLigne}" title="#{bundle.EditLigneTitle_numeroLigne}" />
+                        <p:outputLabel value="#{bundle.EditLigneLabel_nomLigne}" for="nomLigne" />
+                        <p:inputText id="nomLigne" value="#{ligneController.selected.nomLigne}" title="#{bundle.EditLigneTitle_nomLigne}" />
+                        <p:outputLabel value="#{bundle.EditLigneLabel_site}" for="site" />
+                        <p:selectOneMenu id="site" value="#{ligneController.selected.site}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
+                                           var="siteItem"
+                                           itemValue="#{siteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditLigneLabel_typeLigne}" for="typeLigne" />
+                        <p:selectOneMenu id="typeLigne" value="#{ligneController.selected.typeLigne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{typeLigneController.itemsAvailableSelectOne}"
+                                           var="typeLigneItem"
+                                           itemValue="#{typeLigneItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ligneController.update}" value="#{bundle.Save}" update="display,:LigneListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LigneEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LigneEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

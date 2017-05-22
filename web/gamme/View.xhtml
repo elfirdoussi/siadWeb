@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GammeViewDlg" widgetVar="GammeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGammeTitle}">
+            <h:form id="GammeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gammeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGammeLabel_id}"/>
+                        <h:outputText value="#{gammeController.selected.id}" title="#{bundle.ViewGammeTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewGammeLabel_engrais}"/>
+                        <h:outputText value="#{gammeController.selected.engrais}" title="#{bundle.ViewGammeTitle_engrais}"/>
+                        <h:outputText value="#{bundle.ViewGammeLabel_typeLigne}"/>
+                        <h:outputText value="#{gammeController.selected.typeLigne}" title="#{bundle.ViewGammeTitle_typeLigne}"/>
+                        <h:outputText value="#{bundle.ViewGammeLabel_qtteProduite}"/>
+                        <h:outputText value="#{gammeController.selected.qtteProduite}" title="#{bundle.ViewGammeTitle_qtteProduite}"/>
+                        <h:outputText value="#{bundle.ViewGammeLabel_coutVariable}"/>
+                        <h:outputText value="#{gammeController.selected.coutVariable}" title="#{bundle.ViewGammeTitle_coutVariable}"/>
+                        <h:outputText value="#{bundle.ViewGammeLabel_ratio}"/>
+                        <h:outputText value="#{gammeController.selected.ratio}" title="#{bundle.ViewGammeTitle_ratio}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GammeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

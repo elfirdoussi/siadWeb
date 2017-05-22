@@ -1,0 +1,161 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    min-height:100%;/* make sure it is at least as tall as the viewport */
+    position:relative;
+}
+.ui-widget {
+    font-size: 12px !important;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    text-align: center;
+    text-transform: uppercase;
+}
+.ui-button {
+    margin-top: 10px !important;
+}
+.btn_menu .i-button .ui-widget .ui-state-default .ui-corner-all .ui-button-icon-only{
+    /*    background-image: url(../img/btn.png);*/
+    /*background-size: 80%;*/
+    /*display: inline-block;*/
+    width: 150px;
+    height: 150px;
+}
+.bg .ui-layout-unit-content{ background-image: url(../img/bg.jpg); 
+                             margin: 0px;
+                             height: 100%; 
+
+                             /* Center and scale the image nicely */
+                             background-position: center;
+                             background-repeat: no-repeat;
+                             background-size: cover;
+}
+
+.ui-layout-unit-content{
+    border: none;
+    margin: 0px;
+    margin: 0px;
+}
+
+.ui-layout-unit ui-layout-unit-content{
+    border: none;
+    margin: 0;
+}
+
+.ui-layout-unit .ui-widget .ui-widget-content .ui-corner-all .ui-layout-center .ui-layout-pane .ui-layout-pane-center{
+    visibility: hidden;
+}
+
+.ui-corner-all {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px; 
+    border-radius: 0px; 
+}
+
+.ui-widget-content{
+    background: #fff;
+}
+
+.ui-layout-unit {
+    visibility: hidden;
+    padding: 0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.clear{
+    clear: both;
+}
+
+
+.slide-toggle{
+    display: none;
+}
+
+.slidemenu{
+    font-family: arial, sans-serif;
+    max-width: 600px;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+.slidemenu label{
+    width: 25%;
+    text-align: center;
+    display: block;
+    float: left;
+    color: #333;
+    opacity: 0.2;
+
+}
+
+.slidemenu label:hover{
+    cursor: pointer;
+    color: #666;
+}
+
+.slidemenu label span{
+    display: block;
+    padding: 10px;    
+}
+
+.slidemenu label .icon{
+    font-size: 20px;
+    border: solid 2px #333;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    display: block;
+    margin: 0 auto;
+    line-height: 50px;
+    border-radius: 50%;
+}
+
+/*Bar Style*/
+
+.slider{
+    width: 100%;
+    height: 5px;
+    display: block;
+    background: #ccc;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.slider .bar{
+    width: 25%;
+    height: 5px;
+    background: #333;
+    border-radius: 5px;
+}
+
+/*Animations*/
+.slidemenu label, .slider .bar {
+    transition: all 500ms ease-in-out;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+}
+
+/*Toggle*/
+
+.slidemenu .slide-toggle:checked + label{
+    opacity: 1;
+}
+
+
+
+.slidemenu #slide-item-1:checked ~ .slider .bar{ margin-left: 0; }
+.slidemenu #slide-item-2:checked ~ .slider .bar{ margin-left: 25%; }
+.slidemenu #slide-item-3:checked ~ .slider .bar{ margin-left: 50%; }
+.slidemenu #slide-item-4:checked ~ .slider .bar{ margin-left: 75%; }
+

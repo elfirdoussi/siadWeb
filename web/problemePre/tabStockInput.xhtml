@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <p:tab title="Input inventary">
+        <h:form id="StockInputCreationForm">
+            <p:panelGrid columns="6">
+                <p:outputLabel value="#{bundle.CreateStockInputLabel_input}" for="input" />
+                <p:selectOneMenu id="input" value="#{problemePreController.selectedStockInput.input}" >
+                    <f:selectItem itemValue="#{null}" itemLabel="--SELECT--" />
+                    <f:selectItems value="#{inputController.itemsAvailableSelectOne}"
+                                   var="inputItem"
+                                   itemValue="#{inputItem}"
+                                   itemLabel="#{inputItem.nomInput}"
+                                   />
+                </p:selectOneMenu>
+                <p:outputLabel value="#{bundle.CreateStockInputLabel_site}" for="site" />
+                <p:selectOneMenu id="site" value="#{problemePreController.selectedStockInput.site}" >
+                    <f:selectItem itemValue="#{null}" itemLabel="--SELECT--" />
+                    <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
+                                   var="siteItem"
+                                   itemValue="#{siteItem}"
+                                   itemLabel="#{siteItem.nom}"
+                                   />
+                </p:selectOneMenu>
+                <p:outputLabel value="Quantity" for="quantite" />
+                <p:inputText id="quantite" value="#{problemePreController.selectedStockInput.quantite}" title="#{bundle.CreateStockInputTitle_quantite}" />
+            </p:panelGrid>
+            <p:commandButton value="Add" icon="ui-icon-plus"  actionListener="#{problemePreController.ajouterStockInput()}" 
+                             disabled="#{problemePreController.selectedStockInput.id.equals(-1)}"
+                             update="tableView:StockInputListForm, tableView:StockInputCreationForm" />
+            <p:commandButton value="Edit" icon="ui-icon-pencil"  actionListener="#{problemePreController.modifierStockInput()}"
+                             disabled="#{!problemePreController.selectedStockInput.id.equals(-1)}"
+                             update="tableView:StockInputListForm, tableView:StockInputCreationForm" />
+            <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{problemePreController.supprimerStockInput()}" 
+                             disabled="#{!problemePreController.selectedStockInput.id.equals(-1)}" 
+                             update="tableView:StockInputListForm, tableView:StockInputCreationForm" />
+            <p:commandButton value="Reset" icon="ui-icon-trash"  actionListener="#{problemePreController.resetCarnetStockInput()}" 
+                             update="tableView:StockInputListForm, tableView:StockInputCreationForm"/>
+        </h:form>
+        <h:form id="StockInputListForm">
+            <p:panel header="#{bundle.ListStockInputTitle}">
+                <p:dataTable id="datalist" value="#{problemePreController.stockInputs}" var="item"
+                             selectionMode="single" selection="#{problemePreController.selectedStockInput}"
+                             paginator="true"
+                             rowKey="#{item.input}_#{item.site}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect"   update="tableView:StockInputCreationForm"/>
+                    <p:ajax event="rowUnselect" update="tableView:StockInputCreationForm"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListStockInputTitle_input}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.input.nomInput}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListStockInputTitle_site}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.site.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListStockInputTitle_quantite}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.quantite}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </p:tab>
+</html>

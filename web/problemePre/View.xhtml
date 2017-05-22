@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProblemePreViewDlg" widgetVar="ProblemePreViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProblemePreTitle}">
+            <h:form id="ProblemePreViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{problemePreController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProblemePreLabel_nump}"/>
+                        <h:outputText value="#{problemePreController.selected.nump}" title="#{bundle.ViewProblemePreTitle_nump}"/>
+                        <h:outputText value="#{bundle.ViewProblemePreLabel_auteur}"/>
+                        <h:outputText value="#{problemePreController.selected.auteur}" title="#{bundle.ViewProblemePreTitle_auteur}"/>
+                        <h:outputText value="#{bundle.ViewProblemePreLabel_dateCreation}"/>
+                        <h:outputText value="#{problemePreController.selected.dateCreation}" title="#{bundle.ViewProblemePreTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProblemePreLabel_dateDebut}"/>
+                        <h:outputText value="#{problemePreController.selected.dateDebut}" title="#{bundle.ViewProblemePreTitle_dateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProblemePreLabel_dateFin}"/>
+                        <h:outputText value="#{problemePreController.selected.dateFin}" title="#{bundle.ViewProblemePreTitle_dateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProblemePreLabel_numCm}"/>
+                        <h:outputText value="#{problemePreController.selected.numCm}" title="#{bundle.ViewProblemePreTitle_numCm}"/>
+                        <h:outputText value="#{bundle.ViewProblemePreLabel_carnetCommande}"/>
+                        <h:outputText value="#{problemePreController.selected.carnetCommande}" title="#{bundle.ViewProblemePreTitle_carnetCommande}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProblemePreViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

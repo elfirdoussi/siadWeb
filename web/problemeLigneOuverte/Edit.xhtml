@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProblemeLigneOuverteEditDlg" widgetVar="ProblemeLigneOuverteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProblemeLigneOuverteTitle}">
+            <h:form id="ProblemeLigneOuverteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{problemeLigneOuverteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProblemeLigneOuverteLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{problemeLigneOuverteController.selected.id}" title="#{bundle.EditProblemeLigneOuverteTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditProblemeLigneOuverteLabel_problemePre}" for="problemePre" />
+                        <p:selectOneMenu id="problemePre" value="#{problemeLigneOuverteController.selected.problemePre}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{problemePreController.itemsAvailableSelectOne}"
+                                           var="problemePreItem"
+                                           itemValue="#{problemePreItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProblemeLigneOuverteLabel_ligne}" for="ligne" />
+                        <p:selectOneMenu id="ligne" value="#{problemeLigneOuverteController.selected.ligne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ligneController.itemsAvailableSelectOne}"
+                                           var="ligneItem"
+                                           itemValue="#{ligneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProblemeLigneOuverteLabel_couplee}" for="couplee" />
+                        <p:inputText id="couplee" value="#{problemeLigneOuverteController.selected.couplee}" title="#{bundle.EditProblemeLigneOuverteTitle_couplee}" />
+                        <p:outputLabel value="#{bundle.EditProblemeLigneOuverteLabel_ordre}" for="ordre" />
+                        <p:inputText id="ordre" value="#{problemeLigneOuverteController.selected.ordre}" title="#{bundle.EditProblemeLigneOuverteTitle_ordre}" />
+                        <p:outputLabel value="#{bundle.EditProblemeLigneOuverteLabel_ligne2}" for="ligne2" />
+                        <p:selectOneMenu id="ligne2" value="#{problemeLigneOuverteController.selected.ligne2}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ligneController.itemsAvailableSelectOne}"
+                                           var="ligne2Item"
+                                           itemValue="#{ligne2Item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{problemeLigneOuverteController.update}" value="#{bundle.Save}" update="display,:ProblemeLigneOuverteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProblemeLigneOuverteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProblemeLigneOuverteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LancementCreateDlg" widgetVar="LancementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLancementTitle}">
+            <h:form id="LancementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lancementController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLancementLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{lancementController.selected.id}" title="#{bundle.CreateLancementTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateLancementLabel_typeLigne}" for="typeLigne" />
+                        <p:selectOneMenu id="typeLigne" value="#{lancementController.selected.typeLigne}" >
+                            <f:selectItems value="#{typeLigneController.itemsAvailableSelectOne}"
+                                           var="typeLigneItem"
+                                           itemValue="#{typeLigneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLancementLabel_engraisp}" for="engraisp" />
+                        <p:selectOneMenu id="engraisp" value="#{lancementController.selected.engraisp}" >
+                            <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                           var="engraispItem"
+                                           itemValue="#{engraispItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLancementLabel_engraisc}" for="engraisc" />
+                        <p:selectOneMenu id="engraisc" value="#{lancementController.selected.engraisc}" >
+                            <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                           var="engraiscItem"
+                                           itemValue="#{engraiscItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLancementLabel_tempsl}" for="tempsl" />
+                        <p:inputText id="tempsl" value="#{lancementController.selected.tempsl}" title="#{bundle.CreateLancementTitle_tempsl}" />
+                        <p:outputLabel value="#{bundle.CreateLancementLabel_coutl}" for="coutl" />
+                        <p:inputText id="coutl" value="#{lancementController.selected.coutl}" title="#{bundle.CreateLancementTitle_coutl}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{lancementController.create}" value="#{bundle.Save}" update="display,:LancementListForm:datalist,:growl" oncomplete="handleSubmit(args,'LancementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LancementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

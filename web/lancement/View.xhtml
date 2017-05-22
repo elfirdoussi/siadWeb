@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LancementViewDlg" widgetVar="LancementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLancementTitle}">
+            <h:form id="LancementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lancementController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLancementLabel_id}"/>
+                        <h:outputText value="#{lancementController.selected.id}" title="#{bundle.ViewLancementTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewLancementLabel_typeLigne}"/>
+                        <h:outputText value="#{lancementController.selected.typeLigne}" title="#{bundle.ViewLancementTitle_typeLigne}"/>
+                        <h:outputText value="#{bundle.ViewLancementLabel_engraisp}"/>
+                        <h:outputText value="#{lancementController.selected.engraisp}" title="#{bundle.ViewLancementTitle_engraisp}"/>
+                        <h:outputText value="#{bundle.ViewLancementLabel_engraisc}"/>
+                        <h:outputText value="#{lancementController.selected.engraisc}" title="#{bundle.ViewLancementTitle_engraisc}"/>
+                        <h:outputText value="#{bundle.ViewLancementLabel_tempsl}"/>
+                        <h:outputText value="#{lancementController.selected.tempsl}" title="#{bundle.ViewLancementTitle_tempsl}"/>
+                        <h:outputText value="#{bundle.ViewLancementLabel_coutl}"/>
+                        <h:outputText value="#{lancementController.selected.coutl}" title="#{bundle.ViewLancementTitle_coutl}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LancementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

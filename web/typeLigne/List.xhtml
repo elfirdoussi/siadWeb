@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTypeLigneTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div Class="ui-grid-row" >
+                <div Class="ui-grid-col-6" style="width: 45%; margin-top:20px" >
+                    <h:form id="TypeLigneCreateForm">
+                        <p:fieldset legend="#{bundle.ListTypeLigneCreationTitle}">
+                            <h:panelGrid columns="1" style="width: 100%; padding: 20px;">
+                                <p:outputLabel value="#{bundle.CreateTypeLigneLabel_code}" for="code" />
+                                <p:inputText id="code" value="#{typeLigneController.selected.code}"  style="width: 100%" title="#{bundle.CreateTypeLigneTitle_code}" />
+                                <p:outputLabel value="#{bundle.CreateTypeLigneLabel_libelle}" for="libelle" />
+                                <p:inputText id="libelle" value="#{typeLigneController.selected.libelle}"  style="width: 100%" title="#{bundle.CreateTypeLigneTitle_libelle}" />
+                                <p:commandButton actionListener="#{typeLigneController.ajouterTypeLigne()}" style="width: 102%" value="#{bundle.Save}" update="TypeLigneListForm:datalist,:growl" />
+                            </h:panelGrid>
+                        </p:fieldset>
+                    </h:form>
+                </div>
+                <div Class="ui-grid-col-6" style="width: 50%; margin-left: 20px; margin-top:20px">
+                    <h:form id="TypeLigneRechercheForm">
+                        <p:fieldset legend="#{bundle.ListTypeLigneRechercheTitle}">
+                            <h:panelGrid columns="2">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="#{bundle.CreateTypeLigneLabel_code}" for="code" />
+                                    <p:inputText id="code" value="#{typeLigneController.searchTypeLigne.code}" title="#{bundle.CreateTypeLigneTitle_code}" />
+                                    <p:outputLabel value="#{bundle.CreateTypeLigneLabel_libelle}" for="libelle" />
+                                    <p:inputText id="libelle" value="#{typeLigneController.searchTypeLigne.libelle}" title="#{bundle.CreateTypeLigneTitle_libelle}" />
+                                </p:panelGrid>
+                                <p:commandButton icon="ui-icon-search" value="#{bundle.ListTypeLigneBtnSearch}" actionListener="#{typeLigneController.search()}" update="TypeLigneListForm:datalist" />
+                            </h:panelGrid>
+                        </p:fieldset>
+                    </h:form>
+                    <h:form id="TypeLigneListForm">
+                        <p:dataTable id="datalist" value="#{typeLigneController.items}" var="item"
+                                     selectionMode="single" selection="#{typeLigneController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.code}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="editButton deleteButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListTypeLigneTitle_code}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.code}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListTypeLigneTitle_libelle}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.libelle}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TypeLigneEditForm" oncomplete="PF('TypeLigneEditDialog').show()" disabled="#{empty typeLigneController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{typeLigneController.destroy}" update=":growl,datalist" disabled="#{empty typeLigneController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+
+
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

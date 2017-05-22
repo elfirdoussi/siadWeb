@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+
+    </h:head>
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListProblemePostTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <script>
+//                function myLineChartExtender() {
+//                    // this = chart widget instance
+//                    // this.cfg = jqPlot options
+//                    this.cfg.seriesDefaults = {
+//                        lineWidth: 1;
+//                    }
+//                }
+            </script>
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-12" style="width: 100%; padding: 20px;">
+                    <h:panelGrid columns="6" cellspacing="10px">
+                        <p:column>
+                            <i class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i>
+                        </p:column>
+                        <p:column>
+                            Export excel
+                        </p:column>
+                        <i class="fa fa-print fa-2x" aria-hidden="true"></i>
+                        Print
+                        <a href="mailto:example@exempe.com
+                           ?subject=Results
+                           ">
+                            <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+                            Share
+                        </a>
+                    </h:panelGrid>
+                    <br/>
+                    <h:form id="timelineform">
+                        <p:timeline id="timeline" value="#{solutionController.model}" 
+                                    editable="true" eventMargin="10" eventMarginAxis="0" 
+                                    start="#{solutionController.dateStart}" 
+                                    end="#{solutionController.dateEnd}" 
+                                    showNavigation="true" showButtonNew="false" 
+                                    axisOnTop="true" stackEvents="false">  
+                            <p:ajax process=":timelineform" event="select" listener="#{solutionController.onSelectTimeLineEvent}" update="chart, chart2"/>
+                            <p:ajax process=":timelineform" event="change" listener="#{solutionController.onChangeTimeLineEvent}" update="chart, chart2, chart3, chart4"/> 
+                        </p:timeline>
+                        <br/>
+                        <div Class="ui-grid-row">
+                            <div Class="ui-grid-col-6">
+                                <p:chart id="chart" type="line" model="#{solutionController.lineModel1}" style="height:300px;"  />
+                            </div>
+                            <div Class="ui-grid-col-6">
+                                <p:chart id="chart2" type="line" model="#{solutionController.lineModel2}" style="height:300px;"/>
+                            </div>
+                        </div>
+                        <div Class="ui-grid-row">
+                            <div Class="ui-grid-col-6">
+                                <p:chart id="chart4" type="line" model="#{solutionController.lineModel4}" style="height:300px;"/>
+                            </div>
+                            <div Class="ui-grid-col-6">
+                                <p:chart id="chart3" type="line" model="#{solutionController.lineModel3}" style="height:300px;"/>
+                            </div>
+                        </div>
+                    </h:form>
+
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>
