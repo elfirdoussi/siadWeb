@@ -59,7 +59,7 @@ public class ProblemePostController implements Serializable {
 //                fileGenerator.generate(selected.getProblemePre(), selected);
 //        }
 //        showProblemePostErrors(code);
-        return "/faces/problemePost/Results.xhtml";
+        return "/faces/problemePost/Results.xhtml?faces-redirect=true";
     }
 
     private void showProblemePostErrors(int code) {

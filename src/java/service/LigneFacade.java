@@ -43,7 +43,7 @@ public class LigneFacade extends AbstractFacade<Ligne> {
     @EJB
     private LigneFacade ligneFacade;
 
-    public List<Ligne> getLignesWithCarnetCommandeOfTxt(Long nump, Date dateDebut, Date dateFin, HashMap<String, Event> eventMap, HashMap<Ligne, Date[][]> timeLineDatesMap) {
+    public List<Ligne> getLignesWithCarnetCommandeOfTxt(Long nump, Date dateDebut, Date dateFin, HashMap<String, Event> eventMap, HashMap<String, Date[][]> timeLineDatesMap) {
         List<Ligne> lignes = new ArrayList<>();
         int nl = Data.getInstance().getNbreAteliers();
         for (int i = 1; i <= nl; i++) {
@@ -96,11 +96,13 @@ public class LigneFacade extends AbstractFacade<Ligne> {
         return ligne;
     }
 
-    List<CarnetCommandeOf> getCarnetCommandeOfsFromTxt(Long nump, int indexLigne, Date dateDebut, Date dateFin, HashMap<String, Event> eventMap, Ligne ligne, HashMap<Ligne, Date[][]> timeLineDates) {
+    List<CarnetCommandeOf> getCarnetCommandeOfsFromTxt(Long nump, int indexLigne, Date dateDebut, Date dateFin, HashMap<String, Event> eventMap, Ligne ligne, HashMap<String, Date[][]> timeLineDates) {
         List<CarnetCommandeOf> carnetCommandeOfs = new ArrayList<>();
         List<CarnetCommandeOf> loadedCarnetCommandeOfs = carnetCommandeOfFacade.findByNump(nump);
         int nc = Data.getInstance().getNbreCommandes();
         Date[][] dates = new Date[2][nc];
+        System.out.println("############################################");
+        System.out.println("#############  "+ligne.getNomLigne()+"   ###################");
         for (int i = 1; i <= nc; i++) {
             if (indexLigne == Data.getInstance().getLigneChoisi()[i - 1].intValue()) {
                 CarnetCommandeOf carnetCommandeOf = prepareCarnetCommandeOfTxt(
@@ -117,9 +119,12 @@ public class LigneFacade extends AbstractFacade<Ligne> {
                 carnetCommandeOfs.add(carnetCommandeOf);
                 dates[0][i - 1] = carnetCommandeOf.getDateLiveTot();
                 dates[1][i - 1] = carnetCommandeOf.getDateLiveTard();
+                System.out.println("date 0 : "+dates[0][i - 1]);
+                System.out.println("date 1 : "+dates[1][i - 1]);
             }
         }
-        timeLineDates.put(ligneFacade.findByExactLibelle(ligne.getNomLigne()), dates);
+        timeLineDates.put(ligne.getNomLigne(), dates);
+        System.out.println("############################################");
         return carnetCommandeOfs;
     }
 

@@ -17,6 +17,7 @@ public class Event {
     private int finAbsolue;
     private int indiceCommande;
     private Ligne ligne;
+    private TimelineEvent timelineEvent;
 
     public void updateTempsAbsoluParAtelier(TimelineEvent timelineEvent) {
         double tmpAbs = DateUtil.hoursDifference(timelineEvent.getStartDate(), problemePre.getDateDebut());
@@ -31,6 +32,14 @@ public class Event {
 
     public Ligne getLigne() {
         return ligne;
+    }
+
+    public TimelineEvent getTimelineEvent() {
+        return timelineEvent;
+    }
+
+    public void setTimelineEvent(TimelineEvent timelineEvent) {
+        this.timelineEvent = timelineEvent;
     }
 
     public void setLigne(Ligne ligne) {

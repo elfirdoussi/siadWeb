@@ -30,6 +30,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
+import org.primefaces.model.timeline.TimelineEvent;
 import service.CarnetCommandeOfFacade;
 import service.DoodleGammeFacade;
 
@@ -57,7 +58,7 @@ public class SolutionController implements Serializable {
 
     private Event selectedEvent;
     private Date[][] selectedDates;
-    private HashMap<Ligne, Date[][]> timeLineDatesMap = new HashMap<>();
+    private HashMap<String, Date[][]> timeLineDatesMap = new HashMap<>();
 
     @EJB
     private LigneFacade ligneFacade;
@@ -97,7 +98,17 @@ public class SolutionController implements Serializable {
         selectedEvent.setDateStart(event.getDateStart());
         selectedEvent.setDateEnd(event.getDateEnd());
         selectedEvent.setLigne(event.getLigne());
-        selectedDates = timeLineDatesMap.get(selectedEvent.getLigne());
+        selectedDates = timeLineDatesMap.get(selectedEvent.getLigne().getNomLigne());
+
+        System.out.println("selectedEvent.getLigne() " + selectedEvent.getLigne());
+
+        Date[][] dates = timeLineDatesMap.get(selectedEvent.getLigne().getNomLigne());
+        for (int i = 0; i < dates[0].length; i++) {
+//            if (event.getDateStart().before(dates[1][i]) && event.getDateEnd().after(dates[0][i])) {
+            System.out.println("cccccc n dates : " + dates[0][i]);
+            System.out.println("cccccc n dates : " + dates[1][i]);
+//            }
+        }
 
 //        System.out.println("selectedEvent " + event.getLigne());
 //        System.out.println("******************************************* ");
@@ -108,12 +119,62 @@ public class SolutionController implements Serializable {
     }
 
     private void correctDates(Event event, Ligne ligne) {
-        Date[][] dates = timeLineDatesMap.get(ligne);
+        Date[][] dates = timeLineDatesMap.get(ligne.getNomLigne());
         for (int i = 0; i < dates.length; i++) {
 //            if (event.getDateStart().before(dates[1][i]) && event.getDateEnd().after(dates[0][i])) {
             System.out.println("cccccc n dates : " + dates[0][i]);
             System.out.println("cccccc n dates : " + dates[1][i]);
 //            }
+        }
+    }
+
+    public void verifyEventsPosition(TimelineModificationEvent e) {
+        TimelineEvent timelineEvent = e.getTimelineEvent();
+        Event event = eventMap.get(e.getTimelineEvent().getData() + "");
+        boolean chauv = false;
+        boolean oper = false;
+        int indice = -1;
+
+        CarnetCommandeOf carnetCommandeOf = carnetCommandeOfFacade.find(event.getCarnetCommandeOf().getId());
+
+
+        if (!verifyRouting(carnetCommandeOf.getEngrais(), timelineEvent.getGroup())) {
+            System.out.println("haaaaa mmm " + carnetCommandeOf.getLigne());
+            JsfUtil.addWrningMessage("attention...!");
+        } else {
+            event.getTimelineEvent().setGroup(timelineEvent.getGroup());
+            event.setLigne(ligneFacade.findByExactLibelle(timelineEvent.getGroup()));
+        }
+
+
+        Date[][] dates = timeLineDatesMap.get(event.getLigne().getNomLigne());
+        for (int i = 0; i < dates[0].length; i++) {
+//            System.out.println("haaaaa dates[0] : " + dates[0][i]);
+//            System.out.println("cccccc n dates[1] : " + dates[1][i]);
+            if (event.getDateStart() == dates[0][i] && event.getDateEnd() == dates[1][i]) {
+                indice = i;
+            }
+            if (dates[1][i] != null && dates[0][i] != null && event.getDateStart() != dates[0][i] && event.getDateEnd() != dates[1][i]) {
+                oper = true;
+                if (timelineEvent.getStartDate().before(dates[1][i]) && timelineEvent.getStartDate().after(dates[0][i])) {
+                    System.out.println("HANA AO");
+                    chauv = true;
+                }
+                if (!chauv && timelineEvent.getEndDate().before(dates[1][i]) && timelineEvent.getEndDate().after(dates[0][i])) {
+                    System.out.println("HANA RO");
+                    chauv = true;
+                }
+            }
+
+        }
+        if (!chauv && oper) {
+            event.getTimelineEvent().setStartDate(timelineEvent.getStartDate());
+            event.getTimelineEvent().setEndDate(timelineEvent.getEndDate());
+            event.setDateStart(timelineEvent.getStartDate());
+            event.setDateEnd(timelineEvent.getEndDate());
+            dates[0][indice] = event.getDateStart();
+            dates[1][indice] = event.getDateEnd();
+            timeLineDatesMap.put(event.getLigne().getNomLigne(), dates);
         }
     }
 
@@ -124,37 +185,51 @@ public class SolutionController implements Serializable {
         System.out.println("haaaaaaaaaaaaaaaa 00");
         for (int i = 0; i < selectedDates[0].length; i++) {
             if (selectedDates[0][i] != null && selectedDates[1][i] != null && selectedDates[0][i] != event.getDateStart() && selectedDates[1][i] != event.getDateEnd()) {
-                if (e.getTimelineEvent().getStartDate().before(selectedDates[1][i]) 
-                        && e.getTimelineEvent().getEndDate().after(selectedDates[0][i])
-                        ) {
+
+                if ((e.getTimelineEvent().getStartDate().before(selectedDates[1][i])
+                        && e.getTimelineEvent().getStartDate().after(selectedDates[0][i]))
+                        || (e.getTimelineEvent().getEndDate().before(selectedDates[1][i])
+                        && e.getTimelineEvent().getEndDate().after(selectedDates[0][i]))) {
 //                    System.out.println("daaaaaaaates 0:" + selectedDates[0][i]);
 //                    System.out.println("daaaaaaaates 1:" + selectedDates[1][i]);
-                    
-                    e.getTimelineEvent().setStartDate(event.getDateStart());
-                    e.getTimelineEvent().setEndDate(event.getDateEnd());
+
+//                    e.getTimelineEvent().setStartDate(event.getDateStart());
+//                    e.getTimelineEvent().setEndDate(event.getDateEnd());
+                    event.getTimelineEvent().setStartDate(event.getDateStart());
+                    event.getTimelineEvent().setEndDate(event.getDateEnd());
                     JsfUtil.addWrningMessage("attention...!");
-                    System.out.println("A");
+
+                } else {
+                    event.setDateStart(e.getTimelineEvent().getStartDate());
+                    event.setDateEnd(e.getTimelineEvent().getEndDate());
+                    event.getTimelineEvent().setStartDate(e.getTimelineEvent().getStartDate());
+                    event.getTimelineEvent().setEndDate(e.getTimelineEvent().getEndDate());
                 }
+            } else {
+                event.setDateStart(e.getTimelineEvent().getStartDate());
+                event.setDateEnd(e.getTimelineEvent().getEndDate());
+                event.getTimelineEvent().setStartDate(e.getTimelineEvent().getStartDate());
+                event.getTimelineEvent().setEndDate(e.getTimelineEvent().getEndDate());
             }
 
         }
-        
+
         CarnetCommandeOf carnetCommandeOf = carnetCommandeOfFacade.find(event.getCarnetCommandeOf().getId());
-        
-        System.out.println("haaaaa mmm ss 1 : "+event.getCarnetCommandeOf().getId());
-        System.out.println("haaaaa mmm ss"+carnetCommandeOf.getLigne());
-        
-        if(!verifyRouting(carnetCommandeOf.getEngrais(), e.getTimelineEvent().getGroup())){
-            System.out.println("haaaaa mmm "+carnetCommandeOf.getLigne());
-             e.getTimelineEvent().setGroup(carnetCommandeOf.getLigne().getNomLigne());
-             JsfUtil.addWrningMessage("attention...!");
+
+        System.out.println("haaaaa mmm ss 1 : " + event.getCarnetCommandeOf().getId());
+        System.out.println("haaaaa mmm ss" + carnetCommandeOf.getLigne());
+
+        if (!verifyRouting(carnetCommandeOf.getEngrais(), e.getTimelineEvent().getGroup())) {
+            System.out.println("haaaaa mmm " + carnetCommandeOf.getLigne());
+            JsfUtil.addWrningMessage("attention...!");
         }
+        e.getTimelineEvent().setGroup(carnetCommandeOf.getLigne().getNomLigne());
     }
-    
-    private boolean verifyRouting(Engrais engrais, String strLigne){
+
+    private boolean verifyRouting(Engrais engrais, String strLigne) {
         Ligne ligne = ligneFacade.findByExactLibelle(strLigne);
         DoodleGamme doodleGamme = doodleGammeFacade.findByEngraisAndTypeLigne(engrais, ligne.getTypeLigne());
-        if(doodleGamme != null && doodleGamme.isValeur()){
+        if (doodleGamme != null && doodleGamme.isValeur()) {
             return true;
         }
         return false;
@@ -169,7 +244,7 @@ public class SolutionController implements Serializable {
         timelineUtil = new TimelineUtil(model);
         lignes = ligneFacade.getLignesWithCarnetCommandeOfTxt(8000l, dateStart, dateEnd, eventMap, timeLineDatesMap);
         arrets = ligneFacade.getWithCarnetCommandeOfTxtArrets(8000l, dateStart, dateEnd, eventMap);
-        timelineUtil.initialize(lignes, arrets);
+        timelineUtil.initialize(lignes, arrets, eventMap);
         createLineModels();
     }
 

@@ -46,7 +46,7 @@
                     </h:panelGrid>
                     <br/>
                     <h:form id="timelineform">
-                        <p:growl id="growl" life="3000" />
+<!--                        <p:growl id="growl" life="3000" />-->
                         <p:timeline id="timeline" value="#{solutionController.model}" 
                                     editable="true" eventMargin="10" eventMarginAxis="0" 
                                     start="#{solutionController.dateStart}" 
@@ -55,9 +55,9 @@
                                     axisOnTop="true" stackEvents="false">  
                             <p:ajax process=":timelineform" event="select" listener="#{solutionController.onSelectTimeLineEvent}" update="chart, chart2"/>
                             <p:ajax process=":timelineform" event="change" listener="#{solutionController.onChangeTimeLineEvent}" update="chart, chart2, chart3, chart4"/> 
-                            <p:ajax process=":timelineform" event="changed" listener="#{solutionController.verifyEvents}" update="chart, chart2, chart3, chart4, timelineform:growl" oncomplete="ref()"/> 
+                            <p:ajax process=":timelineform" event="changed" listener="#{solutionController.verifyEventsPosition}" update="chart, chart2, chart3, chart4, :growl" oncomplete="location.reload();"/> 
                         </p:timeline>
-                        <p:remoteCommand name="ref" update="timelineform" />
+                        <!--<p:remoteCommand name="ref" update="timelineform" />-->
                         <br/>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-6">

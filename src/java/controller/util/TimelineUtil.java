@@ -27,9 +27,9 @@ public class TimelineUtil {
         this.model = model;
     }
 
-    public void initialize(List<Ligne> lignes, List<Ligne> arrets) {
+    public void initialize(List<Ligne> lignes, List<Ligne> arrets, HashMap<String, Event> eventMap) {
         model.addAllGroups(constructGroups(lignes));
-        model.addAll(constructEvents(lignes));
+        model.addAll(constructEvents(lignes, eventMap));
         model.addAll(constructArrets(arrets));
     }
 
@@ -44,15 +44,15 @@ public class TimelineUtil {
         return timelineGroups;
     }
 
-    private List<TimelineEvent> constructEvents(List<Ligne> lignes) {
+    private List<TimelineEvent> constructEvents(List<Ligne> lignes, HashMap<String, Event> eventMap) {
         List<TimelineEvent> timelineEvents = new ArrayList<>();
         lignes.forEach((l) -> {
-            timelineEvents.addAll(buildEventsByLine(l));
+            timelineEvents.addAll(buildEventsByLine(l,eventMap));
         });
         return timelineEvents;
     }
 
-    private List<TimelineEvent> buildEventsByLine(Ligne ligne) {
+    private List<TimelineEvent> buildEventsByLine(Ligne ligne, HashMap<String, Event> eventMap) {
         List<TimelineEvent> timelineEvents = new ArrayList<>();
         int i =0;
         for (CarnetCommandeOf c : ligne.getCarnetCommandeOfs()) {
@@ -64,6 +64,7 @@ public class TimelineUtil {
             timelineEvent.setEditable(true);
             timelineEvent.setStyleClass("color_" + i);
             timelineEvents.add(timelineEvent);
+            eventMap.get(c.getTitle()).setTimelineEvent(timelineEvent);
             i++;
         }
         return timelineEvents;
