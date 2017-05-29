@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConfigCreateDlg" widgetVar="ConfigCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateConfigTitle}">
+            <h:form id="ConfigCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{configController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateConfigLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{configController.selected.id}" title="#{bundle.CreateConfigTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateConfigLabel_valeur}" for="valeur" />
+                        <p:inputText id="valeur" value="#{configController.selected.valeur}" title="#{bundle.CreateConfigTitle_valeur}" />
+                        <p:outputLabel value="#{bundle.CreateConfigLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{configController.selected.description}" title="#{bundle.CreateConfigTitle_description}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{configController.create}" value="#{bundle.Save}" update="display,:ConfigListForm:datalist,:growl" oncomplete="handleSubmit(args,'ConfigCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ConfigCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

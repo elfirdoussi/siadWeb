@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Solution</title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="timeline.css"/>
+        <h:outputScript library="js" name="gantt.js"/>
+        <script>
+            function extender() {
+                this.cfg.seriesDefaults.lineWidth = 0.5;
+            }
+            extender();
+        </script>
+    </h:head>
+    <h:body>
+        <h:form id="timelineform">
+            <p:timeline id="timeline" value="#{solutionController.model}" 
+                        editable="true" eventMargin="10" eventMarginAxis="0" 
+                        start="#{solutionController.dateStart}" 
+                        end="#{solutionController.dateEnd}" 
+                        showNavigation="false" showButtonNew="false" 
+                        axisOnTop="true" stackEvents="false"  >  
+                <p:ajax process=":timelineform" event="select" listener="#{solutionController.onSelectTimeLineEvent}" update="chart, chart2"/>
+                <p:ajax process=":timelineform" event="change" listener="#{solutionController.onChangeTimeLineEvent}" update="chart, chart2"/>
+            </p:timeline>
+            <br/>
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-6">
+                    <p:chart id="chart" type="line" model="#{solutionController.lineModel1}" style="height:300px;"/>
+                </div>
+                <div Class="ui-grid-col-6">
+                    <p:chart id="chart2" type="line" model="#{solutionController.lineModel2}" style="height:300px;"/>
+                </div>
+            </div>
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-6">
+                    <p:chart id="chart4" type="line" model="#{solutionController.lineModel4}" style="height:300px;"/>
+                </div>
+                <div Class="ui-grid-col-6">
+                    <p:chart id="chart3" type="line" model="#{solutionController.lineModel3}" style="height:300px;"/>
+                </div>
+            </div>
+        </h:form>
+
+    </h:body>
+
+</html>
+

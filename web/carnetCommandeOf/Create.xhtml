@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CarnetCommandeOfCreationDlg" widgetVar="CarnetCommandeOfCreationDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCarnetCommandeOfTitle}">
+            <h:form id="CarnetCommandeOfCreationForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{carnetCommandeController.selectedCarnetCommandeOf != null}">
+                        <p:outputLabel value="#{bundle.CreateCarnetCommandeOfLabel_numeroOf}" for="numeroOf" />
+                        <p:inputText id="numeroOf" required="true" value="#{carnetCommandeController.selectedCarnetCommandeOf.numeroOf}" title="#{bundle.CreateCarnetCommandeOfTitle_numeroOf}" />
+                        <p:outputLabel value="Order book" for="carnetCommande" />
+                        <p:selectOneMenu id="carnetCommande" disabled="true" value="#{carnetCommandeController.selectedCarnetCommandeOf.carnetCommande}" >
+                            <f:selectItems value="#{carnetCommandeController.itemsAvailableSelectOne}"
+                                           var="carnetCommandeItem"
+                                           itemValue="#{carnetCommandeItem}"
+                                           itemLabel="#{carnetCommandeItem.id}"
+                                           />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Fertilier" for="engrais" />
+                        <p:selectOneMenu id="engrais" required="true" value="#{carnetCommandeController.selectedCarnetCommandeOf.engrais}" >
+                            <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                           var="engraisItem"
+                                           itemValue="#{engraisItem}"
+                                           itemLabel="#{engraisItem.libelle}"
+                                           />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Quantity" for="quantite" />
+                        <p:inputText id="quantite" value="#{carnetCommandeController.selectedCarnetCommandeOf.quantite}" title="#{bundle.CreateCarnetCommandeOfTitle_quantite}" />
+                        <p:outputLabel value="#{bundle.CreateCarnetCommandeOfLabel_client}" for="client" />
+                        <p:inputText id="client" value="#{carnetCommandeController.selectedCarnetCommandeOf.client}" title="#{bundle.CreateCarnetCommandeOfTitle_client}" />
+                        <p:outputLabel value="#{bundle.CreateCarnetCommandeOfLabel_ponderation}" for="ponderation" />
+                        <p:inputText id="ponderation" value="#{carnetCommandeController.selectedCarnetCommandeOf.ponderation}" title="#{bundle.CreateCarnetCommandeOfTitle_ponderation}" />
+                        <p:outputLabel value="#{bundle.CreateCarnetCommandeOfLabel_dateLiveTot}" for="dateLiveTot" />
+                        <p:calendar id="dateLiveTot" pattern="dd/MM/yyyy HH:mm:ss" value="#{carnetCommandeController.selectedCarnetCommandeOf.dateLiveTot}" title="#{bundle.EditCarnetCommandeOfTitle_dateLiveTot}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateCarnetCommandeOfLabel_dateLiveTard}" for="dateLiveTard" />
+                        <p:calendar id="dateLiveTard" pattern="dd/MM/yyyy HH:mm:ss" value="#{carnetCommandeController.selectedCarnetCommandeOf.dateLiveTard}" title="#{bundle.EditCarnetCommandeOfTitle_dateLiveTard}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateCarnetCommandeOfLabel_encours}" for="encours" />
+                        <p:selectBooleanCheckbox id="encours" value="#{carnetCommandeController.selectedCarnetCommandeOf.encours}" />
+                        <p:outputLabel value="Line" for="ligne" />
+                        <p:selectOneMenu id="ligne" value="#{carnetCommandeController.selectedCarnetCommandeOf.ligne}" >
+                            <f:selectItems value="#{ligneController.itemsAvailableSelectOne}"
+                                           var="ligneItem"
+                                           itemValue="#{ligneItem}"
+                                           itemLabel="#{ligneItem.nomLigne}"
+                                           />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{carnetCommandeController.creationCarnetCommandeOf()}" value="#{bundle.Save}" update="display,:CarnetCommandeOfListForm:datalist,:growl" oncomplete="handleSubmit(args,'CarnetCommandeOfCreationDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CarnetCommandeOfCreationDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConfigViewDlg" widgetVar="ConfigViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewConfigTitle}">
+            <h:form id="ConfigViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{configController.selected != null}">
+                        <h:outputText value="#{bundle.ViewConfigLabel_id}"/>
+                        <h:outputText value="#{configController.selected.id}" title="#{bundle.ViewConfigTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewConfigLabel_valeur}"/>
+                        <h:outputText value="#{configController.selected.valeur}" title="#{bundle.ViewConfigTitle_valeur}"/>
+                        <h:outputText value="#{bundle.ViewConfigLabel_description}"/>
+                        <h:outputText value="#{configController.selected.description}" title="#{bundle.ViewConfigTitle_description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ConfigViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

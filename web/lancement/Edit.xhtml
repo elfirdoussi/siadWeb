@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LancementEditDlg" widgetVar="LancementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLancementTitle}">
+            <h:form id="LancementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lancementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLancementLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{lancementController.selected.id}" title="#{bundle.EditLancementTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditLancementLabel_typeLigne}" for="typeLigne" />
+                        <p:selectOneMenu id="typeLigne" value="#{lancementController.selected.typeLigne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{typeLigneController.itemsAvailableSelectOne}"
+                                           var="typeLigneItem"
+                                           itemValue="#{typeLigneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditLancementLabel_engraisp}" for="engraisp" />
+                        <p:selectOneMenu id="engraisp" value="#{lancementController.selected.engraisp}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                           var="engraispItem"
+                                           itemValue="#{engraispItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditLancementLabel_engraisc}" for="engraisc" />
+                        <p:selectOneMenu id="engraisc" value="#{lancementController.selected.engraisc}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                           var="engraiscItem"
+                                           itemValue="#{engraiscItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditLancementLabel_tempsl}" for="tempsl" />
+                        <p:inputText id="tempsl" value="#{lancementController.selected.tempsl}" title="#{bundle.EditLancementTitle_tempsl}" />
+                        <p:outputLabel value="#{bundle.EditLancementLabel_coutl}" for="coutl" />
+                        <p:inputText id="coutl" value="#{lancementController.selected.coutl}" title="#{bundle.EditLancementTitle_coutl}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{lancementController.update}" value="#{bundle.Save}" update="display,:LancementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LancementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LancementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProblemePreCreateDlg" widgetVar="ProblemePreCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProblemePreTitle}">
+            <h:form id="ProblemePreCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{problemePreController.selected != null}">
+                        <p:outputLabel value="Order Book" for="carnet" />
+                        <p:selectOneMenu id="carnet" value="#{problemePreController.selected.carnetCommande}">
+                            <f:selectItems value="#{carnetCommandeController.items}" var="carnetItem" itemValue="#{carnetItem}" itemLabel="#{carnetItem.id}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateProblemePreLabel_nump}" for="nump" />
+                        <p:inputText id="nump" value="#{problemePreController.selected.nump}" title="#{bundle.CreateProblemePreTitle_nump}" />
+                        <p:outputLabel value="#{bundle.CreateProblemePreLabel_auteur}" for="auteur" />
+                        <p:inputText id="auteur" value="#{problemePreController.selected.auteur}" title="#{bundle.CreateProblemePreTitle_auteur}" />
+                        <p:outputLabel value="#{bundle.CreateProblemePreLabel_dateCreation}" for="dateCreation" />
+                        <p:calendar id="dateCreation" disabled="true" pattern="dd/MM/yyyy HH:mm:ss" value="#{problemePreController.selected.dateCreation}" title="#{bundle.EditProblemePreTitle_dateCreation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateProblemePreLabel_dateDebut}" for="dateDebut" />
+                        <p:calendar id="dateDebut" pattern="dd/MM/yyyy HH:mm:ss" value="#{problemePreController.selected.dateDebut}" title="#{bundle.EditProblemePreTitle_dateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateProblemePreLabel_dateFin}" for="dateFin" />
+                        <p:calendar id="dateFin" pattern="dd/MM/yyyy HH:mm:ss" value="#{problemePreController.selected.dateFin}" title="#{bundle.EditProblemePreTitle_dateFin}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{problemePreController.create}" value="#{bundle.Save}" update="display,:ProblemeCreationForm, :growl" oncomplete="handleSubmit(args,'ProblemePreCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProblemePreCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

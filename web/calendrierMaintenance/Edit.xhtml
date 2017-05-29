@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CalendrierMaintenanceEditDlg" widgetVar="CalendrierMaintenanceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCalendrierMaintenanceTitle}">
+            <h:form id="CalendrierMaintenanceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{calendrierMaintenanceController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_dateHours}" for="dateHours" />
+                        <p:inputText id="dateHours" value="#{calendrierMaintenanceController.selected.dateHours}" title="#{bundle.EditCalendrierMaintenanceTitle_dateHours}" />
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_strValeur}" for="strValeur" />
+                        <p:inputText id="strValeur" value="#{calendrierMaintenanceController.selected.strValeur}" title="#{bundle.EditCalendrierMaintenanceTitle_strValeur}" />
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_numcm}" for="numcm" />
+                        <p:inputText id="numcm" value="#{calendrierMaintenanceController.selected.numcm}" title="#{bundle.EditCalendrierMaintenanceTitle_numcm}" />
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_auteur}" for="auteur" />
+                        <p:inputText id="auteur" value="#{calendrierMaintenanceController.selected.auteur}" title="#{bundle.EditCalendrierMaintenanceTitle_auteur}" />
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_dateCreation}" for="dateCreation" />
+                        <p:calendar id="dateCreation" pattern="MM/dd/yyyy" value="#{calendrierMaintenanceController.selected.dateCreation}" title="#{bundle.EditCalendrierMaintenanceTitle_dateCreation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_ligne}" for="ligne" />
+                        <p:selectOneMenu id="ligne" value="#{calendrierMaintenanceController.selected.ligne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ligneController.itemsAvailableSelectOne}"
+                                           var="ligneItem"
+                                           itemValue="#{ligneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_numPeriod}" for="numPeriod" />
+                        <p:inputText id="numPeriod" value="#{calendrierMaintenanceController.selected.numPeriod}" title="#{bundle.EditCalendrierMaintenanceTitle_numPeriod}" />
+                        <p:outputLabel value="#{bundle.EditCalendrierMaintenanceLabel_problemePre}" for="problemePre" />
+                        <p:selectOneMenu id="problemePre" value="#{calendrierMaintenanceController.selected.problemePre}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{problemePreController.itemsAvailableSelectOne}"
+                                           var="problemePreItem"
+                                           itemValue="#{problemePreItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{calendrierMaintenanceController.update}" value="#{bundle.Save}" update="display,:CalendrierMaintenanceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CalendrierMaintenanceEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CalendrierMaintenanceEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

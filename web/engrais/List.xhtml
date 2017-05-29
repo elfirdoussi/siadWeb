@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEngraisTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-12">
+
+                </div>
+            </div>
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-6" style=" width: 40%">
+
+                    <br/>
+                    <h:form id="EngraisCreateForm">
+                        <p:fieldset legend="#{bundle.ListEngraisCreationTitle}" style="padding: 30px;">
+                            <h:panelGrid columns="1" style="width: 100%">
+                                <p:outputLabel value="#{bundle.CreateEngraisLabel_numero}" for="numero" />
+                                <p:inputText id="numero" value="#{engraisController.selected.numero}" style="width: 100%" title="#{bundle.CreateEngraisTitle_numero}" />
+                                <p:outputLabel value="#{bundle.CreateEngraisLabel_libelle}" for="libelle" />
+                                <p:inputText id="libelle" value="#{engraisController.selected.libelle}" style="width: 100%" title="#{bundle.CreateEngraisTitle_libelle}" />
+                            </h:panelGrid>
+                            <p:commandButton actionListener="#{engraisController.ajouterEngrais()}" value="Add" style="width: 101%" update="EngraisListForm, EngraisListForm:datalist,:growl" />
+                        </p:fieldset>
+                    </h:form>
+                </div>
+                <div Class="ui-grid-col-6" style="margin-left: 20px; margin-top:20px">
+                    <h:form id="EngraisRechercheForm">
+                        <p:fieldset legend="#{bundle.ListEngraisRechercheTitle}" >
+                            <h:panelGrid columns="2">
+                                <h:panelGrid columns="4">
+                                    <p:outputLabel value="#{bundle.CreateEngraisLabel_numero}" for="numero" />
+                                    <p:inputText id="numero" value="#{engraisController.searchEngrais.numero}" title="#{bundle.CreateEngraisTitle_numero}" />
+                                    <p:outputLabel value="#{bundle.CreateEngraisLabel_libelle}" for="libelle" />
+                                    <p:inputText id="libelle" value="#{engraisController.searchEngrais.libelle}" title="#{bundle.CreateEngraisTitle_libelle}" />
+                                </h:panelGrid>
+                                <p:commandButton icon="ui-icon-search" value="#{bundle.ListEngraisBtnSearch}" actionListener="#{engraisController.search()}" update="EngraisListForm:datalist, EngraisListForm" />
+                            </h:panelGrid>
+                        </p:fieldset>
+                    </h:form> 
+                    <h:form id="EngraisListForm">
+                        <p:panel header="Total: #{engraisController.items.size()}" >
+                            <p:dataTable id="datalist" value="#{engraisController.items}" var="item"
+                                         selectionMode="single" selection="#{engraisController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.numero}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+
+                                <p:ajax event="rowSelect"   update="editButton deleteButton"/>
+                                <p:ajax event="rowUnselect" update="editButton deleteButton"/>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListEngraisTitle_numero}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numero}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListEngraisTitle_libelle}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.libelle}"/>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EngraisEditForm" oncomplete="PF('EngraisEditDialog').show()" disabled="#{empty engraisController.selected}"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{engraisController.destroy}" update=":growl,datalist" disabled="#{empty engraisController.selected}"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </div>
+            <ui:include src="Edit.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

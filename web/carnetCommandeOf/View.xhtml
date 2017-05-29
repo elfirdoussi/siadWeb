@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CarnetCommandeOfViewDlg" widgetVar="CarnetCommandeOfViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCarnetCommandeOfTitle}">
+            <h:form id="CarnetCommandeOfViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{carnetCommandeOfController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_title}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.title}" title="#{bundle.ViewCarnetCommandeOfTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_numeroOf}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.numeroOf}" title="#{bundle.ViewCarnetCommandeOfTitle_numeroOf}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_carnetCommande}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.carnetCommande}" title="#{bundle.ViewCarnetCommandeOfTitle_carnetCommande}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_engrais}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.engrais}" title="#{bundle.ViewCarnetCommandeOfTitle_engrais}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_quantite}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.quantite}" title="#{bundle.ViewCarnetCommandeOfTitle_quantite}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_client}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.client}" title="#{bundle.ViewCarnetCommandeOfTitle_client}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_ponderation}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.ponderation}" title="#{bundle.ViewCarnetCommandeOfTitle_ponderation}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_dateLiveTot}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.dateLiveTot}" title="#{bundle.ViewCarnetCommandeOfTitle_dateLiveTot}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_dateLiveTard}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.dateLiveTard}" title="#{bundle.ViewCarnetCommandeOfTitle_dateLiveTard}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_encours}"/>
+                        <p:selectBooleanCheckbox value="#{carnetCommandeOfController.selected.encours}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_ligne}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.ligne}" title="#{bundle.ViewCarnetCommandeOfTitle_ligne}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_id}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.id}" title="#{bundle.ViewCarnetCommandeOfTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_dateLiveTotStr}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.dateLiveTotStr}" title="#{bundle.ViewCarnetCommandeOfTitle_dateLiveTotStr}"/>
+                        <h:outputText value="#{bundle.ViewCarnetCommandeOfLabel_dateLiveTardStr}"/>
+                        <h:outputText value="#{carnetCommandeOfController.selected.dateLiveTardStr}" title="#{bundle.ViewCarnetCommandeOfTitle_dateLiveTardStr}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CarnetCommandeOfViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

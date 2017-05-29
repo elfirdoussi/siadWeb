@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    
+    <h:head>
+        <title>Welcome to SIAD | SignIn</title>
+        <h:outputStylesheet name="css/login.css"/>
+        <h:outputStylesheet name="css/animate.css"/>
+    </h:head>
+    <h:body>
+ <p:growl id="growl" life="3000" />
+        <p:layout fullPage="true" styleClass="bg">
+            <p:layoutUnit styleClass="bg" visible="true" class="bg"  position="center">
+                <div Class="ui-grid-row" style="margin-top: 16%">
+                    <div Class="ui-grid-col-6" >
+                        &nbsp;
+                    </div>
+                    <div Class="ui-grid-col-6">
+                        <div Class="ui-grid-row">
+                            <div Class="ui-grid-col-4"></div>
+                            <div Class="ui-grid-col-4" style="margin-left: 11%">
+                                <img class="animated flipInX" src="resources/img/logoWelcome.png" width="165%" />
+                                <br/><br/>
+                                <h:form>
+                                    <h:panelGrid class="animated fadeIn" columns="2" width="165%">
+                                        <p:outputLabel for="username" value="Username" style="width: 100%;" />
+                                        <p:inputText id="username" value="#{userController.selected.username}" style="width:100%;" />
+                                        <p:outputLabel for="password" value="Password"  style="width: 100%;" />
+                                        <p:password id="password" value="#{userController.selected.password}" style="width: 100%;" />
+                                        <p:column></p:column>
+                                        <p:commandButton value="Connexion" action="#{userController.seConnnecter()}" style="width: 104%;" update=":growl" />
+                                    </h:panelGrid>
+                                </h:form>
+                               
+                            </div>
+                            <div Class="ui-grid-col-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+
+
+
+    </h:body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
+

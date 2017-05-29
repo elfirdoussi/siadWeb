@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LigneViewDlg" widgetVar="LigneViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLigneTitle}">
+            <h:form id="LigneViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ligneController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLigneLabel_numeroLigne}"/>
+                        <h:outputText value="#{ligneController.selected.numeroLigne}" title="#{bundle.ViewLigneTitle_numeroLigne}"/>
+                        <h:outputText value="#{bundle.ViewLigneLabel_nomLigne}"/>
+                        <h:outputText value="#{ligneController.selected.nomLigne}" title="#{bundle.ViewLigneTitle_nomLigne}"/>
+                        <h:outputText value="#{bundle.ViewLigneLabel_site}"/>
+                        <h:outputText value="#{ligneController.selected.site}" title="#{bundle.ViewLigneTitle_site}"/>
+                        <h:outputText value="#{bundle.ViewLigneLabel_typeLigne}"/>
+                        <h:outputText value="#{ligneController.selected.typeLigne}" title="#{bundle.ViewLigneTitle_typeLigne}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LigneViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

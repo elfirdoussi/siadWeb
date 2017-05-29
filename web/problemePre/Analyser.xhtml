@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="SIAD | Analyse Problem #{problemePreController.selected.nump}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-12">
+                    <h:form id="ProblemePreListForm">
+                        <br/><br/>
+                        <center>
+                            <h3><div style="color: green;">#{problemePreController.msg1}</div></h3> <br/>
+                            <h4>#{problemePreController.msg2} <br/>
+                                Number of periods: #{problemePreController.periods} <br/>
+                                Number of operationnal lines: #{problemePreController.operationalLines} <br/>
+                                Number of order: #{problemePreController.order} <br/> </h4>
+                        </center>
+                        <br/>
+                        <p:panel header="Problem #{problemePreController.selected.nump}">
+                            <p:dataTable id="datalist" value="#{problemePreController.itemsCreation}" var="item" >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListProblemePreTitle_nump}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nump}"/>
+                                </p:column>
+                                <p:column>
+
+                                    <f:facet name="header">
+                                        <h:outputText value="Author"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.auteur}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListProblemePreTitle_dateCreation}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateCreation}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date start"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateDebut}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date end"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateFin}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListProblemePreTitle_carnetCommande}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.carnetCommande}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+
+                        <p:chart id="chart" rendered="#{problemePreController.selected.nump == 8000}" type="line" model="#{problemePreController.lineModel}" style="height:300px;"/>
+                    </h:form>
+                </div>
+            </div>
+
+
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

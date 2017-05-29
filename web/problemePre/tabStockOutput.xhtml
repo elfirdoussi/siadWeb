@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <p:tab title="Fertilizer storage">
+        <h:form id="StockOutputCreationForm">
+            <p:fieldset >
+                <p:panelGrid columns="6">
+                    <p:outputLabel value="Fertilizer" for="engrais" />
+                    <p:selectOneMenu id="engrais" value="#{problemePreController.selectedStockOutput.engrais}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="--SELECT--" />
+                        <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                       var="engraisItem"
+                                       itemValue="#{engraisItem}"
+                                       itemLabel="#{engraisItem.libelle}"
+                                       />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateStockOutputLabel_site}" for="site" />
+                    <p:selectOneMenu id="site" value="#{problemePreController.selectedStockOutput.site}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="--SELECT--" />
+                        <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
+                                       var="siteItem"
+                                       itemValue="#{siteItem}"
+                                       itemLabel="#{siteItem.nom}"
+                                       />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Quantity" for="quantite" />
+                    <p:inputText id="quantite" value="#{problemePreController.selectedStockOutput.quantite}" title="#{bundle.CreateStockOutputTitle_quantite}" />
+                </p:panelGrid>
+                <p:commandButton value="Add" icon="ui-icon-plus"  actionListener="#{problemePreController.ajouterStockOutput()}" 
+                                 disabled="#{problemePreController.selectedStockOutput.id.equals(-1)}"
+                                 update="tableView:StockOutputCreationForm, tableView:StockOutputListForm" />
+                <p:commandButton value="Edit" icon="ui-icon-pencil"  actionListener="#{problemePreController.modifierStockOutput()}"
+                                 disabled="#{!problemePreController.selectedStockOutput.id.equals(-1)}"
+                                 update="tableView:StockOutputCreationForm, tableView:StockOutputListForm" />
+                <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{problemePreController.supprimerStockOutput()}" 
+                                 disabled="#{!problemePreController.selectedStockOutput.id.equals(-1)}" 
+                                 update="tableView:StockOutputCreationForm, tableView:StockOutputListForm" />
+                <p:commandButton value="Reset" icon="ui-icon-trash"  actionListener="#{problemePreController.resetCarnetStockOutput()}" 
+                                 update="tableView:StockOutputCreationForm, tableView:StockOutputListForm"/>
+            </p:fieldset>
+        </h:form>
+        <h:form id="StockOutputListForm">
+            <p:panel header="#{bundle.ListStockOutputTitle}">
+                <p:dataTable id="datalist" value="#{problemePreController.stockOutputs}" var="item"
+                             selectionMode="single" selection="#{problemePreController.selectedStockOutput}"
+                             paginator="true"
+                             rowKey="#{item.engrais}_#{item.site}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect"   update="tableView:StockOutputCreationForm"/>
+                    <p:ajax event="rowUnselect" update="tableView:StockOutputCreationForm"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fertilizer"/>
+                        </f:facet>
+                        <h:outputText value="#{item.engrais.libelle}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListStockOutputTitle_site}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.site.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListStockOutputTitle_quantite}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.quantite}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </p:tab>
+</html>

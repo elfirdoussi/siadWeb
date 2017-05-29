@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListNomenclatureTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-6" style="width: 50%; padding: 20px;">
+                    <h:form id="NomenclatureRechercheForm">
+                        <p:fieldset legend="#{bundle.ListNomenclatureRecherche}">
+                            <h:panelGrid columns="1" style="width: 100%">
+                                <p:outputLabel value="Line type" for="typeLigne" />
+                                <p:selectOneMenu id="typeLigne" style="width: 70%"  value="#{nomenclatureController.selected.typeLigne}" >
+                                    <f:selectItem itemLabel="--SELECT--" itemValue="#{null}" />
+                                    <f:selectItems value="#{typeLigneController.itemsAvailableSelectOne}"
+                                                   var="typeLigneItem"
+                                                   itemValue="#{typeLigneItem}"
+                                                   itemLabel="#{typeLigneItem.libelle}" />
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Fertilizer" for="engrais" />
+                                <p:selectOneMenu id="engrais" style="width: 70%" value="#{nomenclatureController.selected.engrais}" >
+                                    <f:selectItem itemLabel="--SELECT--" itemValue="#{null}" />
+                                    <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                                   var="engraisItem"
+                                                   itemValue="#{engraisItem}"
+                                                   itemLabel="#{engraisItem.libelle}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <p:commandButton icon="ui-icon-search" value="Search" style="width: 73%" actionListener="#{nomenclatureController.search()}" update="NomenclatureListForm:datalist" />
+                        </p:fieldset>
+                    </h:form>
+                </div>
+                <div Class="ui-grid-col-6" style="width: 50%; margin-top: 35px;">
+                    <h:form id="NomenclatureListForm">
+                        <p:dataTable id="datalist" value="#{nomenclatureController.nomenclatureItems}" var="item"
+                                     paginator="true"
+                                     rows="10"
+                                     rowIndexVar="index"
+                                     editable="true" 
+                                     editMode="cell"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNomenclatureItemTitle_input}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.input.nomInput}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNomenclatureItemTitle_qtteInput}"/>
+                                </f:facet>
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{item.qtteInput}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.qtteInput}" style="width:96%" >
+                                            <p:ajax listener="#{nomenclatureController.updateNomenclatureItem(item, index)}" />
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <f:facet name="footer">
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CalendrierMaintenanceViewDlg" widgetVar="CalendrierMaintenanceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCalendrierMaintenanceTitle}">
+            <h:form id="CalendrierMaintenanceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{calendrierMaintenanceController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_dateHours}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.dateHours}" title="#{bundle.ViewCalendrierMaintenanceTitle_dateHours}"/>
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_strValeur}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.strValeur}" title="#{bundle.ViewCalendrierMaintenanceTitle_strValeur}"/>
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_numcm}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.numcm}" title="#{bundle.ViewCalendrierMaintenanceTitle_numcm}"/>
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_auteur}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.auteur}" title="#{bundle.ViewCalendrierMaintenanceTitle_auteur}"/>
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_dateCreation}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.dateCreation}" title="#{bundle.ViewCalendrierMaintenanceTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_ligne}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.ligne}" title="#{bundle.ViewCalendrierMaintenanceTitle_ligne}"/>
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_numPeriod}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.numPeriod}" title="#{bundle.ViewCalendrierMaintenanceTitle_numPeriod}"/>
+                        <h:outputText value="#{bundle.ViewCalendrierMaintenanceLabel_problemePre}"/>
+                        <h:outputText value="#{calendrierMaintenanceController.selected.problemePre}" title="#{bundle.ViewCalendrierMaintenanceTitle_problemePre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CalendrierMaintenanceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

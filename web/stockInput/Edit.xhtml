@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StockInputEditDlg" widgetVar="StockInputEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditStockInputTitle}">
+            <h:form id="StockInputEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stockInputController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditStockInputLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{stockInputController.selected.id}" title="#{bundle.EditStockInputTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditStockInputLabel_input}" for="input" />
+                        <p:selectOneMenu id="input" value="#{stockInputController.selected.input}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{inputController.itemsAvailableSelectOne}"
+                                           var="inputItem"
+                                           itemValue="#{inputItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditStockInputLabel_problemePre}" for="problemePre" />
+                        <p:selectOneMenu id="problemePre" value="#{stockInputController.selected.problemePre}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{problemePreController.itemsAvailableSelectOne}"
+                                           var="problemePreItem"
+                                           itemValue="#{problemePreItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditStockInputLabel_site}" for="site" />
+                        <p:selectOneMenu id="site" value="#{stockInputController.selected.site}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
+                                           var="siteItem"
+                                           itemValue="#{siteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditStockInputLabel_quantite}" for="quantite" />
+                        <p:inputText id="quantite" value="#{stockInputController.selected.quantite}" title="#{bundle.EditStockInputTitle_quantite}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stockInputController.update}" value="#{bundle.Save}" update="display,:StockInputListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StockInputEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StockInputEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StockOutputViewDlg" widgetVar="StockOutputViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStockOutputTitle}">
+            <h:form id="StockOutputViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stockOutputController.selected != null}">
+                        <h:outputText value="#{bundle.ViewStockOutputLabel_id}"/>
+                        <h:outputText value="#{stockOutputController.selected.id}" title="#{bundle.ViewStockOutputTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewStockOutputLabel_engrais}"/>
+                        <h:outputText value="#{stockOutputController.selected.engrais}" title="#{bundle.ViewStockOutputTitle_engrais}"/>
+                        <h:outputText value="#{bundle.ViewStockOutputLabel_problemePre}"/>
+                        <h:outputText value="#{stockOutputController.selected.problemePre}" title="#{bundle.ViewStockOutputTitle_problemePre}"/>
+                        <h:outputText value="#{bundle.ViewStockOutputLabel_site}"/>
+                        <h:outputText value="#{stockOutputController.selected.site}" title="#{bundle.ViewStockOutputTitle_site}"/>
+                        <h:outputText value="#{bundle.ViewStockOutputLabel_quantite}"/>
+                        <h:outputText value="#{stockOutputController.selected.quantite}" title="#{bundle.ViewStockOutputTitle_quantite}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="StockOutputViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

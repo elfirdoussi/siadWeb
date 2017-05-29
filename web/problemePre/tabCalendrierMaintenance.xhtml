@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <p:tab title="Calendar maintenance">
+        <div Class="ui-grid-row">
+            <div Class="ui-grid-col-12">
+                <h:form id="CalendrierMaintenanceSearchForm">
+                    <h:panelGrid columns="2">
+                        <p:panelGrid columns="4">
+                            <p:outputLabel value="Line" for="ligne" />
+                            <p:selectOneMenu id="ligne" value="#{problemePreController.selectedLigne}" >
+                                <f:selectItems value="#{problemePreController.problemeLigneOuvertes}"
+                                               var="problemeLigneOuverteItem"
+                                               itemValue="#{problemeLigneOuverteItem.ligne}"
+                                               itemLabel="#{problemeLigneOuverteItem.ligne.nomLigne}"
+                                               />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Choose the date" for="date" />
+                            <p:selectOneMenu id="date" value="#{problemePreController.selectedDate}" >
+                                <f:selectItems value="#{problemePreController.calendrierMaintenanceDates}"
+                                               var="date"
+                                               itemValue="#{problemePreController.calendrierMaintenanceDates.indexOf(date)}"
+                                               itemLabel="#{date.key}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton icon="ui-icon-search" value="Search" actionListener="#{problemePreController.searchCalendrierMaintenance()}" update="tableView:CalendrierMaintenanceListForm:datalist,:growl" />
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </div>
+        <h:form id="CalendrierMaintenanceListForm">
+            <p:panel header="#{bundle.ListCalendrierMaintenanceTitle}">
+                <p:dataTable id="datalist" value="#{problemePreController.subListcalendrierMaintenances}" var="item"
+                             paginator="true"
+                             rows="24"
+                             rowIndexVar="index"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCalendrierMaintenanceTitle_dateHours}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.dateHours}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCalendrierMaintenanceTitle_strValeur}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{item.valeur}" >
+                            <p:ajax listener="#{problemePreController.updateCalendrierMaintenance(item, index)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>
+
+                    <f:facet name="footer">
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </p:tab>
+</html>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+     #{userController.isNotConnected()}
+
+    <h:head>
+        <title><ui:insert name="title">SIAD</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <h:outputStylesheet library="css" name="timeline.css"/>
+    </h:head>
+
+    <h:body>
+        <p:layout >
+            <p:growl id="growl" life="3000" />
+            <p:layoutUnit position="center" id="pageLayout" >
+                <div Class="ui-grid-row" >
+                    <div Class="ui-grid-col-6" style="width:0.5%; ">
+                        <img src="../resources/img/str.jpg" style="width: 150%" />
+                    </div>
+                    <div Class="ui-grid-col-6" style="width: 99%">
+                        <div Class="ui-grid-col-4">
+                            <img src="../resources/img/logow.png" style="margin-left: 10%; margin-top: 5%; width: 45%" /></div>
+                        <div Class="ui-grid-row" style="margin: 0px;">
+                            <div Class="ui-grid-col-12" style="width:50%">
+                                <h:form id="menuForm">
+                                    <p:menubar>
+                                        <p:submenu label="#{bundle.File}" style="width: 20%" icon="fa fa-download">
+                                        </p:submenu>
+                                        <p:submenu label="#{bundle.Siad}" style="width: 20%"  icon="fa fa-tachometer">
+                                            <p:menuitem value="Order Books" outcome="/carnetCommande/List.xhtml" />
+                                            <p:menuitem value="#{bundle.NewProblem}" action="#{problemePreController.newProblem()}" />
+                                            <p:menuitem value="New Problem (Demo)" action="#{problemePreController.newProblemDemo()}" />
+                                            <p:menuitem value="#{bundle.Problems}" action="#{problemePreController.initProblemes()}" />
+                                            <p:menuitem value="#{bundle.Solution}" outcome="/problemePost/List.xhtml" />
+                                        </p:submenu>
+                                        <p:submenu label="#{bundle.StructuralData}" style="width: 20%"  icon="fa fa-database">
+                                            <p:menuitem value="#{bundle.Engrais}" outcome="/engrais/List.xhtml" />
+                                            <p:menuitem value="#{bundle.TypeLigne}" outcome="/typeLigne/List.xhtml" />
+                                            <p:menuitem value="#{bundle.Ligne}" outcome="/ligne/List.xhtml" />
+                                            <p:menuitem value="#{bundle.Bom}" outcome="/nomenclature/List.xhtml" />
+                                            <p:menuitem value="#{bundle.Routing}" outcome="/doodleGamme/List.xhtml" />
+                                            <p:menuitem value="#{bundle.Launch}" outcome="/lancement/List.xhtml" />
+                                        </p:submenu>
+                                        <p:submenu label="#{bundle.Configuration}" style="width: 20%"  icon="fa fa-cogs">
+                                        </p:submenu>
+                                        <p:submenu label="#{bundle.About}" style="width: 20%"  icon="fa fa-info-circle">
+                                        </p:submenu>
+                                    </p:menubar>
+                                </h:form>
+                            </div>
+
+                            <div Class="ui-grid-row" style="margin-top: 5%; margin-left: 20px">
+                                <ui:insert name="body"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+
+</html>

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+     #{userController.isNotConnected()}
+    <h:head>
+        <title>SIAD | Menu</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/menu.css"/>
+        <script>
+        </script>
+    </h:head>
+    <h:body>
+
+        <p:layout fullPage="true" styleClass="bg">
+            <p:layoutUnit styleClass="bg" visible="true" class="bg"  position="center">
+                <div Class="ui-grid-row" style="">
+                    <div Class="ui-grid-col-6" >
+                        &nbsp;
+                    </div>
+                    <div Class="ui-grid-col-6" style="margin-top: 25px">
+                        <div Class="ui-grid-row">
+                            <div Class="ui-grid-col-4">
+                                <img src="resources/img/logoWelcome.png" width="100%" />
+                            </div>
+                            <div Class="ui-grid-col-4">
+                                &nbsp;
+                            </div>
+                            <div Class="ui-grid-col-4">
+                                <table style="margin-top: 10px">
+                                    <tr>
+                                        <td> <img src="resources/img/user.png" width="80%" /></td>
+                                        <td><p><b>#{userController.currentUser.username}@siad</b></p><p style="color: #7ae253"><u>Connected</u></p></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div Class="ui-grid-row" style="margin-top: 5%">
+                            <div style="width:auto; display: inline-block;">
+                                <table cellspacing="100">
+                                    <tr>
+                                        <td>
+                                            <a href="../faces/engrais/List.xhtml">
+                                                <div class="btn_4">
+                                                    <i class="fa fa-database fa-5x menu_btn" aria-hidden="true"  ></i>
+                                                </div>
+                                                <h4><span style="color:#1b8193">Structural Data</span></h4>
+                                            </a>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <a href="../faces/carnetCommande/List.xhtml">
+                                                <div class="btn_1">
+                                                    <i class="fa fa-book fa-5x menu_btn" aria-hidden="true"></i>
+                                                </div>
+                                                <h4><span style="color:#1b8193">Order books</span></h4>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="../faces/problemePre/ProblemCreation.xhtml">
+                                                <div class="btn_3">
+                                                    <i class="fa fa-cubes fa-5x menu_btn" aria-hidden="true"></i>
+                                                </div>
+                                                <h4><span style="color:#1b8193">New Problem</span></h4>
+                                            </a>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <a href="../faces/problemePost/List.xhtml">
+                                                <div class="btn_2">
+                                                    <i class="fa fa-bar-chart fa-5x menu_btn"  aria-hidden="true"></i>
+                                                </div>
+                                                <h4><span style="color:#1b8193">Solution</span></h4>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div Class="ui-grid-row" style="margin-top: 5%">
+
+                        </div>
+                    </div>
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+
+
+
+    </h:body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
+

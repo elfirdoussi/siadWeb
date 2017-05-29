@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="017cdad4-2381-49b9-8890-09bfe2ff24fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" hAlign="Center" vAlign="Middle">
+		<box>
+			<pen lineWidth="1.0"/>
+			<topPen lineWidth="1.0"/>
+			<leftPen lineWidth="1.0"/>
+			<bottomPen lineWidth="1.0"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+	<parameter name="idCarnet" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="engrais.libelle" class="java.lang.String"/>
+	<field name="numeroOf" class="java.lang.Long"/>
+	<field name="quantite" class="java.lang.Float"/>
+	<field name="client" class="java.lang.String"/>
+	<field name="ponderation" class="java.lang.Integer"/>
+	<field name="dateLiveTot" class="java.util.Date"/>
+	<field name="datLiveTard" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="302" y="56" width="84" height="26" uuid="15d4a581-568a-48e1-8e2e-e6e7dd8a0a99"/>
+				<textElement>
+					<font fontName="Serif" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{idCarnet}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="129" y="56" width="173" height="26" uuid="a106e748-5909-4cb1-879e-2d9038b3448c"/>
+				<textElement>
+					<font fontName="Serif" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carnet Commande N°:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="47" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement style="style1" x="163" y="0" width="66" height="29" uuid="caab8d8c-c4e2-4858-81dc-bb95e61fab37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="style1" x="117" y="0" width="46" height="29" uuid="8a538581-598e-44a2-8230-a36eaa0ed115"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NumOf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="style1" x="0" y="0" width="117" height="29" uuid="6152e3a4-3af1-43c4-a05c-d16fc416ebe2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Engrais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="style1" x="229" y="0" width="73" height="29" uuid="caab8d8c-c4e2-4858-81dc-bb95e61fab37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Client]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="style1" x="302" y="0" width="73" height="29" uuid="caab8d8c-c4e2-4858-81dc-bb95e61fab37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ponderation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="style1" x="375" y="0" width="73" height="29" uuid="caab8d8c-c4e2-4858-81dc-bb95e61fab37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DateLivTot]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="style1" x="448" y="0" width="73" height="29" uuid="caab8d8c-c4e2-4858-81dc-bb95e61fab37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DateLivTard]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="0" y="0" width="117" height="20" uuid="fcfe2e46-de32-41e3-ba91-4d6213b3a377"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{engrais.libelle}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="117" y="0" width="46" height="20" uuid="4e2ca35a-431c-4c90-b96b-c18d7e4fb93e"/>
+				<textElement>
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroOf}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="163" y="0" width="66" height="20" uuid="089256a5-29f1-4411-90f1-516444168427"/>
+				<textElement>
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="229" y="0" width="73" height="20" uuid="089256a5-29f1-4411-90f1-516444168427"/>
+				<textElement>
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{client}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="302" y="0" width="73" height="20" uuid="089256a5-29f1-4411-90f1-516444168427"/>
+				<textElement>
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ponderation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="375" y="0" width="73" height="20" uuid="089256a5-29f1-4411-90f1-516444168427"/>
+				<textElement>
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateLiveTot}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="style1" x="448" y="0" width="73" height="20" uuid="089256a5-29f1-4411-90f1-516444168427"/>
+				<textElement>
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datLiveTard}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="61" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="SIAD | Order books"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div Class="ui-grid-row">
+                <div Class="ui-grid-col-12">
+                    <h:form id="CarnetCommandeRechercheForm">
+
+                    </h:form>
+                </div>
+            </div>
+
+            <div Class="ui-grid-row">
+                 <br/><br/>
+                 <div style="width: 30%" Class="ui-grid-col-6">
+                    <h:form id="CarnetCommandeListForm">
+                        <p:panel header="Order Books">
+                            <p:dataTable id="datalist" value="#{carnetCommandeController.items}" var="item"
+                                         selectionMode="single" selection="#{carnetCommandeController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+
+                                <p:ajax event="rowSelect"   update="createButton deleteButton"/>
+                                <p:ajax event="rowUnselect" update="createButton deleteButton"/>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListCarnetCommandeTitle_id}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListCarnetCommandeTitle_dateCreation}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateCreation}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Action"/>
+                                    </f:facet>
+                                    <p:commandButton id="detailButton" icon="fa fa-bars" actionListener="#{carnetCommandeController.findByCarnetCommande(item)}" update="CarnetCommandeOfListForm:datalist, datalist" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{carnetCommandeController.prepareCreate()}" update="CarnetCommandeCreateForm, CarnetCommandeOfCreateForm, CarnetCommandeOfCreationListForm" oncomplete="PF('CarnetCommandeCreateDialog').show()"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{carnetCommandeController.supprimerCarnet()}" update=":growl, datalist, CarnetCommandeOfListForm:datalist" disabled="#{empty carnetCommandeController.selected}" >
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:blockUI block="pageLayout" trigger="deleteButton" >
+                                        <h:panelGroup id="display" >
+                                            <div class="align-center" style="width: 100%;">
+                                                <p:graphicImage  value ="../resources/img/hourglass.gif" width="32" height="32"  /><br></br>
+                                                <p:outputLabel value="Suppression en cours...." styleClass="text-font"/> 
+                                            </div>
+                                        </h:panelGroup>
+                                    </p:blockUI>
+                                </f:facet>
+                            </p:dataTable>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:panel>
+                    </h:form>
+                </div>
+                <div style="width: 70%" Class="ui-grid-col-6">
+                    <h:form id="CarnetCommandeOfListForm">
+                        <p:dataTable id="datalist" value="#{carnetCommandeController.carnetCommandeOfs}" var="item"
+                                     selectionMode="single" selection="#{carnetCommandeController.selectedCarnetCommandeOf}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton deleteButton editButton"/>
+                            <p:ajax event="rowUnselect" update="createButton deleteButton editButton"/>
+
+                            <f:facet name="header">
+                                Order Book N°:#{carnetCommandeController.selected.id}
+                                <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                                <p:columnToggler datasource="datalist" trigger="toggler" />
+                            </f:facet>
+
+                            <p:column style="width: 100px" headerText="Fertilizer">
+                                <h:outputText value="#{item.engrais.libelle}"/>
+                            </p:column>
+
+                            <p:column style="width: 40px" headerText="Number Of">
+                                <h:outputText value="#{item.numeroOf}"/>
+                            </p:column>
+
+                            <p:column headerText="Quantity">
+                                <h:outputText value="#{item.quantite}"/>
+                            </p:column>
+
+                            <p:column headerText="#{bundle.ListCarnetCommandeOfTitle_client}">
+                                <h:outputText value="#{item.client}"/>
+                            </p:column>
+
+                            <p:column headerText="Priority">
+                                <h:outputText value="#{item.ponderation}"/>
+                            </p:column>
+
+                            <p:column headerText="Early end production">
+                                <h:outputText value="#{item.dateLiveTot}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Late end production">
+                                <h:outputText value="#{item.dateLiveTard}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="In progress">
+                                <p:selectBooleanCheckbox value="#{item.encours}" disabled="true"/>
+                            </p:column>
+
+                            <p:column headerText="Line">
+                                <h:outputText value="#{item.ligne.nomLigne}"/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{carnetCommandeController.prepareCreationCarnetCommandeOf}" update=":CarnetCommandeOfCreationForm" oncomplete="PF('CarnetCommandeOfCreationDialog').show()"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CarnetCommandeOfEditForm" oncomplete="PF('CarnetCommandeOfEditDialog').show()" disabled="#{empty carnetCommandeController.selectedCarnetCommandeOf}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{carnetCommandeController.deleteCarnetCommandeOf}" update=":growl,datalist" disabled="#{empty carnetCommandeController.selectedCarnetCommandeOf}">
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="../carnetCommandeOf/Create.xhtml"/>
+            <ui:include src="../carnetCommandeOf/Edit.xhtml"/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,31 @@
+body, html {
+    height: 100%;
+}
+.bg .ui-layout-unit-content{ background-image: url(../img/bg.jpg); 
+                             margin: 0px;
+                             height: 100%; 
+
+                             /* Center and scale the image nicely */
+                             background-position: center;
+                             background-repeat: no-repeat;
+                             background-size: cover;
+}
+
+.ui-widget {
+    font-size: 12px !important;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    text-align: center;
+    text-transform: uppercase;
+}
+.ui-button {
+    margin-top: 10px !important;
+}
+

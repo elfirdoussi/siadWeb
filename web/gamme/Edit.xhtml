@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GammeEditDlg" widgetVar="GammeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGammeTitle}">
+            <h:form id="GammeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gammeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGammeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{gammeController.selected.id}" title="#{bundle.EditGammeTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditGammeLabel_engrais}" for="engrais" />
+                        <p:selectOneMenu id="engrais" value="#{gammeController.selected.engrais}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{engraisController.itemsAvailableSelectOne}"
+                                           var="engraisItem"
+                                           itemValue="#{engraisItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditGammeLabel_typeLigne}" for="typeLigne" />
+                        <p:selectOneMenu id="typeLigne" value="#{gammeController.selected.typeLigne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{typeLigneController.itemsAvailableSelectOne}"
+                                           var="typeLigneItem"
+                                           itemValue="#{typeLigneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditGammeLabel_qtteProduite}" for="qtteProduite" />
+                        <p:inputText id="qtteProduite" value="#{gammeController.selected.qtteProduite}" title="#{bundle.EditGammeTitle_qtteProduite}" />
+                        <p:outputLabel value="#{bundle.EditGammeLabel_coutVariable}" for="coutVariable" />
+                        <p:inputText id="coutVariable" value="#{gammeController.selected.coutVariable}" title="#{bundle.EditGammeTitle_coutVariable}" />
+                        <p:outputLabel value="#{bundle.EditGammeLabel_ratio}" for="ratio" />
+                        <p:inputText id="ratio" value="#{gammeController.selected.ratio}" title="#{bundle.EditGammeTitle_ratio}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gammeController.update}" value="#{bundle.Save}" update="display,:GammeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GammeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GammeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
