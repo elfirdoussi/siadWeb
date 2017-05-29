@@ -124,37 +124,42 @@ public class SolutionController implements Serializable {
         System.out.println("haaaaaaaaaaaaaaaa 00");
         for (int i = 0; i < selectedDates[0].length; i++) {
             if (selectedDates[0][i] != null && selectedDates[1][i] != null && selectedDates[0][i] != event.getDateStart() && selectedDates[1][i] != event.getDateEnd()) {
-                if (e.getTimelineEvent().getStartDate().before(selectedDates[1][i]) 
-                        && e.getTimelineEvent().getEndDate().after(selectedDates[0][i])
-                        ) {
+                if (e.getTimelineEvent().getStartDate().before(selectedDates[1][i])
+                        && e.getTimelineEvent().getEndDate().after(selectedDates[0][i])) {
 //                    System.out.println("daaaaaaaates 0:" + selectedDates[0][i]);
 //                    System.out.println("daaaaaaaates 1:" + selectedDates[1][i]);
-                    
+
                     e.getTimelineEvent().setStartDate(event.getDateStart());
                     e.getTimelineEvent().setEndDate(event.getDateEnd());
                     JsfUtil.addWrningMessage("attention...!");
                     System.out.println("A");
+                } else {
+                    event.setDateStart(e.getTimelineEvent().getStartDate());
+                    event.setDateEnd(e.getTimelineEvent().getEndDate());
                 }
+            } else {
+                event.setDateStart(e.getTimelineEvent().getStartDate());
+                event.setDateEnd(e.getTimelineEvent().getEndDate());
             }
 
         }
-        
+
         CarnetCommandeOf carnetCommandeOf = carnetCommandeOfFacade.find(event.getCarnetCommandeOf().getId());
-        
-        System.out.println("haaaaa mmm ss 1 : "+event.getCarnetCommandeOf().getId());
-        System.out.println("haaaaa mmm ss"+carnetCommandeOf.getLigne());
-        
-        if(!verifyRouting(carnetCommandeOf.getEngrais(), e.getTimelineEvent().getGroup())){
-            System.out.println("haaaaa mmm "+carnetCommandeOf.getLigne());
-             e.getTimelineEvent().setGroup(carnetCommandeOf.getLigne().getNomLigne());
-             JsfUtil.addWrningMessage("attention...!");
+
+        System.out.println("haaaaa mmm ss 1 : " + event.getCarnetCommandeOf().getId());
+        System.out.println("haaaaa mmm ss" + carnetCommandeOf.getLigne());
+
+        if (!verifyRouting(carnetCommandeOf.getEngrais(), e.getTimelineEvent().getGroup())) {
+            System.out.println("haaaaa mmm " + carnetCommandeOf.getLigne());
+            e.getTimelineEvent().setGroup(carnetCommandeOf.getLigne().getNomLigne());
+            JsfUtil.addWrningMessage("attention...!");
         }
     }
-    
-    private boolean verifyRouting(Engrais engrais, String strLigne){
+
+    private boolean verifyRouting(Engrais engrais, String strLigne) {
         Ligne ligne = ligneFacade.findByExactLibelle(strLigne);
         DoodleGamme doodleGamme = doodleGammeFacade.findByEngraisAndTypeLigne(engrais, ligne.getTypeLigne());
-        if(doodleGamme != null && doodleGamme.isValeur()){
+        if (doodleGamme != null && doodleGamme.isValeur()) {
             return true;
         }
         return false;
