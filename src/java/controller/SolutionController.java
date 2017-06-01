@@ -137,7 +137,6 @@ public class SolutionController implements Serializable {
 
         CarnetCommandeOf carnetCommandeOf = carnetCommandeOfFacade.find(event.getCarnetCommandeOf().getId());
 
-
         if (!verifyRouting(carnetCommandeOf.getEngrais(), timelineEvent.getGroup())) {
             System.out.println("haaaaa mmm " + carnetCommandeOf.getLigne());
             JsfUtil.addWrningMessage("attention...!");
@@ -145,7 +144,6 @@ public class SolutionController implements Serializable {
             event.getTimelineEvent().setGroup(timelineEvent.getGroup());
             event.setLigne(ligneFacade.findByExactLibelle(timelineEvent.getGroup()));
         }
-
 
         Date[][] dates = timeLineDatesMap.get(event.getLigne().getNomLigne());
         for (int i = 0; i < dates[0].length; i++) {
@@ -172,9 +170,11 @@ public class SolutionController implements Serializable {
             event.getTimelineEvent().setEndDate(timelineEvent.getEndDate());
             event.setDateStart(timelineEvent.getStartDate());
             event.setDateEnd(timelineEvent.getEndDate());
-            dates[0][indice] = event.getDateStart();
-            dates[1][indice] = event.getDateEnd();
-            timeLineDatesMap.put(event.getLigne().getNomLigne(), dates);
+            if (indice != -1) {
+                dates[0][indice] = event.getDateStart();
+                dates[1][indice] = event.getDateEnd();
+                timeLineDatesMap.put(event.getLigne().getNomLigne(), dates);
+            }
         }
     }
 
