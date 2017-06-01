@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSiteTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="SiteListForm">
+                <br/><br/><br/><br/><br/>
+                <div Class="ui-grid-row">
+                    <div Class="ui-grid-col-5" >
+                        <p:panel header="#{bundle.ListSiteTitle}">
+                            <p:dataTable id="datalist" value="#{userController.items}" var="item"
+                                         selectionMode="single" selection="#{userController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="username"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.username}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListSiteTitle_nom}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom} #{item.prenom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="blocked"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.blocked ? 'yes' : 'no'}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </div>
+                    <div Class="ui-grid-col-7">
+                        <p:panel header="User privilèges: ">
+                            <p:panelGrid columns="4" style="width: 100%">
+                                <p:outputLabel value="Username : #{userController.selected.username}" />
+                                <p:outputLabel value="Nom : #{userController.selected.nom}" />
+                                <p:outputLabel value="Prenom : #{userController.selected.prenom}" />
+                            </p:panelGrid>
+                            <br/>
+                            <p:fieldset legend="Structural Data " toggleable="true">
+                                <p:panelGrid columns="2" style="width: 100%">
+                                    <p:outputLabel value="Fertiliezr :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox  value="#{userController.selected.readFertiliezr}" />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.createFertiliezr}" />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.editFertiliezr}" />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.removeFertiliezr}" />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="Line type :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.readLineType}" />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.createLine}"  />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.editLineType}"  />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.removeLineType}"  />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="Line :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.readLine}"   />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.createLine}" />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.editLine}" />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.removeLine}" />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="BOM :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.readBom}" />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.createBom}" />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.editBom}" />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.removeBom}" />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="Routing :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.readRouting}" />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.createRouting}" />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.editRouting}" />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.removeRouting}" />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="Launch :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.readLaunch}" />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.createLaunch}" />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.editLaunch}" />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox value="#{userController.selected.removeLaunch}" />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                </p:panelGrid>
+                            </p:fieldset>
+                            <p:fieldset legend="Problem" toggleable="true">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Order Book :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox   />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="ProblemPre :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox   />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="ProblemPost :"  />
+                                    <h:panelGrid columns="4">
+                                        <p:panel header="Read" style="text-align: center">
+                                            <p:selectBooleanCheckbox   />
+                                        </p:panel>
+                                        <p:panel header="Create" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                        <p:panel header="Update" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                        <p:panel header="Remove" style="text-align: center">
+                                            <p:selectBooleanCheckbox  />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                </p:panelGrid>
+                            </p:fieldset>
+                        </p:panel>
+                    </div>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

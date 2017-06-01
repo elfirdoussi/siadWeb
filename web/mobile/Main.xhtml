@@ -8,58 +8,19 @@
     <h:head>
     </h:head>
     <h:body>
-        <pm:page id="main">
-            <pm:header title="Main Page"></pm:header>
+        <pm:page id="first">
+            <pm:header title="Page 1"></pm:header>
+
             <pm:content>
-                <p:tabMenu activeIndex="2">
-                    <p:menuitem value="Siad" icon="ui-icon-home" outcome="pm:second" iconPos="top"/>
-                    <p:menuitem value="StructuralData" icon="ui-icon-gear" outcome="pm:createLigne" iconPos="top"/>
-                    <p:menuitem value="Configuration" icon="ui-icon-search" outcome="pm:second" iconPos="top"/>
-                </p:tabMenu>
+                <p>Multiple pages can be placed in a single xhtml page.</p>
             </pm:content>
         </pm:page>
+
         <pm:page id="second">
-            <pm:header title="Second Page"></pm:header>
+            <pm:header title="Page 2"></pm:header>
+
             <pm:content>
-                <p:dataList value="#{ligneController.items}" var="item"  paginator="true" rows="5">
-                    <h:outputLink value="#">
-                        <h2>#{item.numeroLigne}</h2>
-                        <p>#{item.nomLigne}</p>
-                        <p>#{item.typeLigne.libelle}</p>
-                        <p class="ui-li-aside"><strong>#{item.site.nom}</strong></p>
-                    </h:outputLink>
-                </p:dataList> 
-            </pm:content>
-        </pm:page>
-        <pm:page id="createLigne">
-            <pm:header title="Ligne Creation"></pm:header>
-            <pm:content>
-                <pm:field>
-                    <p:outputLabel for="numeroLigne" value="NumeroLigne:" />
-                    <p:inputText id="numeroLigne" value="#{ligneController.selected.numeroLigne}" />
-                </pm:field>
-                <pm:field>
-                    <p:outputLabel for="nomLigne" value="NomLigne:" />
-                    <p:inputText id="nomLigne" value="#{ligneController.selected.nomLigne}" />
-                </pm:field>
-                <pm:field>
-                    <p:outputLabel for="typeLigne" value="TypeLigne:" />
-                    <p:selectOneMenu id="typeLigne">
-                        <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItems value="#{typeLigneController.itemsAvailableSelectOne}"
-                                       var="typeLigneItem"
-                                       itemValue="#{typeLigneItem}"
-                                       itemLabel="#{typeLigneItem.libelle}" />
-                    </p:selectOneMenu>
-                    <p:outputLabel for="site" value="Site:" />
-                    <p:selectOneMenu id="site">
-                        <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
-                                       var="siteItem"
-                                       itemValue="#{siteItem}"
-                                       itemLabel="#{siteItem.nom}" />
-                    </p:selectOneMenu>
-                </pm:field>
+                <p>Page 2 content.</p>
             </pm:content>
         </pm:page>
     </h:body>

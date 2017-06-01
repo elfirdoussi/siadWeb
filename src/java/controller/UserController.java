@@ -32,9 +32,8 @@ public class UserController implements Serializable {
     private List<User> items;
     private User selected;
 
-    private String oldPassword;
-    private String changePassword;
-    private String changeRepetePassword;
+    
+    
 
     public UserController() {
 
@@ -116,30 +115,6 @@ public class UserController implements Serializable {
 
     public void setSelected(User selected) {
         this.selected = selected;
-    }
-
-    public String getChangePassword() {
-        return changePassword;
-    }
-
-    public void setChangePassword(String changePassword) {
-        this.changePassword = changePassword;
-    }
-
-    public String getChangeRepetePassword() {
-        return changeRepetePassword;
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public void setChangeRepetePassword(String changeRepetePassword) {
-        this.changeRepetePassword = changeRepetePassword;
     }
 
     protected void setEmbeddableKeys() {
